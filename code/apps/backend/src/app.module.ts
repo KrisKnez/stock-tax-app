@@ -9,7 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     ServeStaticModule.forRoot({
       rootPath: require
         .resolve('swagger-ui-dist/index.html', {
-          paths: [require.resolve('@nestjs/swagger')],
+          // paths: [require.resolve('@nestjs/swagger')],
         })
         .replace('index.html', ''),
       serveRoot: '/test',
