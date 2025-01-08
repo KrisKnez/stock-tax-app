@@ -7,6 +7,33 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    const nestjsSwaggerPath = require
+      .resolve('@nestjs/swagger')
+      .replace('index.js', '');
+
+    return nestjsSwaggerPath;
+    // return this.appService.getHello();
+  }
+
+  @Get('cats')
+  getCats(): string {
+    const nestjsSwaggerPath = require
+      .resolve('@nestjs/swagger')
+      .replace('index.js', '');
+
+    const swaggerUiDistPath = require.resolve('swagger-ui-dist', {
+      paths: [nestjsSwaggerPath],
+    });
+
+    return swaggerUiDistPath;
+  }
+
+  @Get('dogs')
+  getDOgs(): string {
+    const swaggerUiDistPath = require.resolve('swagger-ui-dist', {
+      paths: ['/'],
+    });
+
+    return swaggerUiDistPath;
   }
 }
