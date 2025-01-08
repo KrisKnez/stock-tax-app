@@ -9,9 +9,9 @@
     "strict": true,
     "skipLibCheck": true,
     "paths": {
-      "$amplify/*": [
-        "../.amplify/generated/*"
-      ]
-    }
+      "$amplify/*": ["../.amplify/generated/*"]
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   }
 }
