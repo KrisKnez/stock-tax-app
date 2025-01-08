@@ -16,13 +16,14 @@ export async function bootstrap() {
 
   await app.init();
 
-  const nestjsSwaggerPath = require
-    .resolve('@nestjs/swagger')
-    .replace('index.js', '');
+  // const nestjsSwaggerPath = require.resolve('@nestjs/swagger');
+  // // .replace('index.js', '');
 
-  const swaggerUiDistPath = require.resolve('swagger-ui-dist', {
-    paths: [nestjsSwaggerPath],
-  });
+  // const swaggerUiDistPath = require.resolve('swagger-ui-dist', {
+  //   paths: [nestjsSwaggerPath],
+  // });
+
+  // console.log(swaggerUiDistPath);
 
   return app;
 }
