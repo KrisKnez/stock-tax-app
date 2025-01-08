@@ -14,20 +14,3 @@ export default async function handler(req, res) {
 
   instance(req, res);
 }
-
-// export default async function handler(req, res) {
-//   const { method } = req;
-
-//   switch (method) {
-//     case 'GET':
-//       res.status(200).json({ message: 'Welcome to the Bootstrap API!', data: null });
-//       break;
-//     case 'POST':
-//       const body = req.body;
-//       res.status(200).json({ message: 'POST request received!', data: body });
-//       break;
-//     default:
-//       res.setHeader('Allow', ['GET', 'POST']);
-//       res.status(405).json({ message: `Method ${method} not allowed` });
-//   }
-// }
