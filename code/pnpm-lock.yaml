@@ -142,6 +142,12 @@ importers:
         specifier: ^5.0.0
         version: 5.7.2
 
+  apps/backend-vercel:
+    dependencies:
+      backend:
+        specifier: workspace:*
+        version: link:../backend
+
 packages:
 
   '@ampproject/remapping@2.3.0':
