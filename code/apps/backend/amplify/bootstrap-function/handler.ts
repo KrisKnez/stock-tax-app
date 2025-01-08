@@ -9,7 +9,7 @@ import {
 
 import { Server } from 'http';
 
-import { AppModule } from 'src/app.module';
+import { AppModule } from '../../src/app.module';
 
 let cachedServer: Server;
 
@@ -40,7 +40,14 @@ export const handler: Handler = async (
       requestContext: event.requestContext,
     };
 
-    const response = {
+    const response: {
+      statusCode: number;
+      headers: { [key: string]: string };
+      body: string;
+      setHeader: (key: string, value: string) => void;
+      write: (chunk: any) => void;
+      end: () => void;
+    } = {
       statusCode: 200,
       headers: {},
       body: '',
