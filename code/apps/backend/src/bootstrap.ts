@@ -19,7 +19,7 @@ export async function bootstrap() {
   const nestjsSwaggerPath = require
     .resolve('@nestjs/swagger')
     .replace('index.js', '');
-  console.error('@nestjs.swagger:', nestjsSwaggerPath);
+  throw new Error(['@nestjs.swagger:', nestjsSwaggerPath].join(' '));
 
   const swaggerUiDistPath = require.resolve('swagger-ui-dist', {
     paths: [nestjsSwaggerPath],
