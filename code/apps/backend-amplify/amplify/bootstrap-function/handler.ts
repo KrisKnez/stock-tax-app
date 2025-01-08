@@ -1,15 +1,15 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory } from "@nestjs/core";
 
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
   Context,
   Handler,
-} from 'aws-lambda';
+} from "aws-lambda";
 
-import { Server } from 'http';
+import { Server } from "http";
 
-import { AppModule } from '../../src/app.module';
+import { AppModule } from "backend";
 
 let cachedServer: Server;
 
@@ -25,7 +25,7 @@ async function bootstrapServer() {
 export const handler: Handler = async (
   event: APIGatewayProxyEvent,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _context: Context,
+  _context: Context
 ): Promise<APIGatewayProxyResult> => {
   cachedServer = await bootstrapServer();
 
@@ -50,7 +50,7 @@ export const handler: Handler = async (
     } = {
       statusCode: 200,
       headers: {},
-      body: '',
+      body: "",
       setHeader: function (key: string, value: string) {
         this.headers[key] = value;
       },
@@ -66,6 +66,6 @@ export const handler: Handler = async (
       },
     };
 
-    cachedServer.emit('request', request, response);
+    cachedServer.emit("request", request, response);
   });
 };
