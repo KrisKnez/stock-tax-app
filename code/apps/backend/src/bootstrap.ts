@@ -20,9 +20,9 @@ export async function bootstrap() {
     .resolve('@nestjs/swagger')
     .replace('index.js', '');
 
-  // const swaggerUiDistPath = require.resolve('swagger-ui-dist', {
-  //   paths: [nestjsSwaggerPath],
-  // });
+  const swaggerUiDistPath = require.resolve('swagger-ui-dist', {
+    paths: [nestjsSwaggerPath],
+  });
 
   return app;
 }
