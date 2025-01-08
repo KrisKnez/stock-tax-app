@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.init();
+  await app.init();
 
   const config = new DocumentBuilder()
     .setTitle('Cats example')
