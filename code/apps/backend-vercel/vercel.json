@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "api/bootstrap.ts"
+      "dest": "api/bootstrap.js"
     }
   ]
 }
