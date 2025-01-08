@@ -6,7 +6,7 @@ import { bootstrap } from "backend";
 let app;
 export default async function handler(req, res) {
   // Bootstrap our NestJS app on cold start
-  if (!app) app = await (await bootstrap()).init();
+  if (!app) app = await bootstrap();
 
   const adapterHost = app.get(HttpAdapterHost);
   const httpAdapter = adapterHost.httpAdapter;
