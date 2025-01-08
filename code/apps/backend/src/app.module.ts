@@ -2,14 +2,17 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 
 @Module({
   imports: [
     // Fix Swagger bug on Serverless (404 on assets)
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../', 'node_modules/swagger-ui-dist'),
-      serveRoot: '/api',
+      rootPath: require
+        .resolve('swagger-ui-dist/index.html', {
+          paths: [require.resolve('@nestjs/swagger')],
+        })
+        .replace('index.html', ''),
+      serveRoot: '/test',
     }),
   ],
   controllers: [AppController],
