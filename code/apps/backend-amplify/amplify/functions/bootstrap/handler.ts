@@ -1,5 +1,3 @@
-import { NestFactory } from "@nestjs/core";
-
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
@@ -9,13 +7,13 @@ import {
 
 import { Server } from "http";
 
-import { AppModule } from "backend";
+import { bootstrap } from "backend";
 
 let cachedServer: Server;
 
 async function bootstrapServer() {
   if (!cachedServer) {
-    const app = await NestFactory.create(AppModule);
+    const app = await bootstrap();
     await app.init();
     cachedServer = app.getHttpAdapter().getInstance();
   }
