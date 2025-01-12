@@ -7,7 +7,7 @@
 
 // import { Server } from "http";
 
-// import { bootstrap } from "backend";
+import { bootstrap } from "backend";
 
 // let cachedServer: Server;
 
@@ -70,6 +70,7 @@
 import type { Handler } from 'aws-lambda';
 
 export const handler: Handler = async (event, context) => {
+  await bootstrap();
   // your function code goes here
   return 'Hello, World!';
 };
