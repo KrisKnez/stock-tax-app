@@ -133,6 +133,9 @@ importers:
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
+      backend:
+        specifier: workspace:*
+        version: link:../backend
     devDependencies:
       '@aws-amplify/backend':
         specifier: ^1.12.0

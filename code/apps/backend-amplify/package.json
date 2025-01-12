@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "aws-amplify": "^6.12.0",
-    "aws-lambda": "^1.0.7"
+    "aws-lambda": "^1.0.7",
+    "backend": "workspace:*"
   }
 }
