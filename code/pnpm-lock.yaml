@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      esbuild:
+        specifier: ^0.24.2
+        version: 0.24.2
 
   apps/backend:
     dependencies:
@@ -119,9 +123,6 @@ importers:
       backend:
         specifier: workspace:*
         version: link:../backend
-      esbuild:
-        specifier: ^0.24.2
-        version: 0.24.2
     devDependencies:
       '@aws-amplify/backend':
         specifier: ^1.12.0
@@ -141,6 +142,9 @@ importers:
       constructs:
         specifier: ^10.0.0
         version: 10.4.2
+      esbuild:
+        specifier: ^0.24.2
+        version: 0.24.2
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
