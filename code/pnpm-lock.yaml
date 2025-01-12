@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      esbuild:
+        specifier: ^0.24.2
+        version: 0.24.2
 
   apps/backend:
     dependencies:

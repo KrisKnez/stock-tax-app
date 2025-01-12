@@ -14,7 +14,6 @@ let cachedServer: Server;
 async function bootstrapServer() {
   if (!cachedServer) {
     const app = await bootstrap();
-    await app.init();
     cachedServer = app.getHttpAdapter().getInstance();
   }
   return cachedServer;
