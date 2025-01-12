@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@nestjs/core": "^10.0.0",
     "backend": "workspace:*"
   }
 }

@@ -1,6 +1,6 @@
-import { defineFunction } from '@aws-amplify/backend';
+import { defineFunction } from "@aws-amplify/backend";
 
 export const bootstrapFunction = defineFunction({
-  name: 'bootstrap-function',
-  entry: './handler.ts',
+  name: "bootstrap-function",
+  entry: "./handler.ts",
 });

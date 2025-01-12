@@ -21,7 +21,6 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@nestjs/core": "^10.0.0",
     "aws-amplify": "^6.12.0",
     "aws-lambda": "^1.0.7",
     "backend": "workspace:*"

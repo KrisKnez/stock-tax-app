@@ -1,4 +1,4 @@
-import { HttpAdapterHost } from "@nestjs/core";
+// import { HttpAdapterHost } from "@nestjs/core";
 
 import { bootstrap } from "backend";
 
@@ -8,9 +8,11 @@ export default async function handler(req, res) {
   // Bootstrap our NestJS app on cold start
   if (!app) app = await bootstrap();
 
-  const adapterHost = app.get(HttpAdapterHost);
-  const httpAdapter = adapterHost.httpAdapter;
-  const instance = httpAdapter.getInstance();
+  // const adapterHost = app.get(HttpAdapterHost);
+  // const httpAdapter = adapterHost.httpAdapter;
+  // const instance = httpAdapter.getInstance();
+
+  const instance = app.getHttpAdapter().getInstance();
 
   instance(req, res);
 }
