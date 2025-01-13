@@ -1,5 +1,5 @@
 {
-  "name": "backend-amplify",
+  "name": "@stock-tax-app/backend-amplify",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -21,8 +21,8 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "@stock-tax-app/backend": "^0.0.1",
     "aws-amplify": "^6.12.0",
-    "aws-lambda": "^1.0.7",
-    "backend": "workspace:*"
+    "aws-lambda": "^1.0.7"
   }
 }

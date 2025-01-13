@@ -1,5 +1,5 @@
 {
-  "name": "backend-vercel",
+  "name": "@stock-tax-app/backend-vercel",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "backend": "workspace:*"
   }
 }
