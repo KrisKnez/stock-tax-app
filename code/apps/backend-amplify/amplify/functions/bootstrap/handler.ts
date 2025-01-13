@@ -7,7 +7,7 @@
 
 // import { Server } from "http";
 
-import { bootstrap } from "backend";
+import { bootstrap } from "@stock-tax-app/backend";
 
 // let cachedServer: Server;
 
