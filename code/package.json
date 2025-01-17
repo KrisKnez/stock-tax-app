@@ -1,5 +1,4 @@
 {
-  "name": "@stock-tax-app",
   "workspaces": [
     "apps/*",
     "packages/*"
