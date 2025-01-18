@@ -12,7 +12,7 @@ export const bootstrapFunction = defineFunction({
         "@fastify/static",
         "@nestjs/microservices",
         "@nestjs/websockets",
-      ].map((name) => [name, "ExternalDependency:1"])
+      ].map((name) => [name, ""])
     ),
   },
 });
