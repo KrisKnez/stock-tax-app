@@ -5,14 +5,14 @@ export const bootstrapFunction = defineFunction({
   entry: "./handler.ts",
   layers: {
     // Layers get injected into ESBuild's `external` option
-    ...Object.fromEntries(
-      [
-        "class-validator",
-        "class-transformer",
-        "@fastify/static",
-        "@nestjs/microservices",
-        "@nestjs/websockets",
-      ].map((name) => [name, ""])
-    ),
+    // ...Object.fromEntries(
+    //   [
+    //     "class-validator",
+    //     "class-transformer",
+    //     "@fastify/static",
+    //     "@nestjs/microservices",
+    //     "@nestjs/websockets",
+    //   ].map((name) => [name, ""])
+    // ),
   },
 });

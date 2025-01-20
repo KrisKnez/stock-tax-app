@@ -1,0 +1,18 @@
+{
+  "name": "@stock-tax-app/backend-deploy-lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist -m && (cd dist && zip -FSr ../dist.zip .)"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@stock-tax-app/backend": "workspace:*",
+    "aws-lambda": "^1.0.7",
+    "aws-xray-sdk": "^3.10.2",
+    "@vercel/ncc": "^0.38.3"
+  }
+}
