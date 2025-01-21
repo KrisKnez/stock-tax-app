@@ -20,7 +20,17 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     //   serveRoot: '/api',
     // }),
     ServeStaticModule.forRoot({
-      rootPath: require('swagger-ui-dist').getAbsoluteFSPath(),
+      rootPath: require(
+        require
+          .resolve('swagger-ui-dist/package.json', {
+            paths: [
+              require
+                .resolve('@nestjs/swagger/package.json')
+                .replace('package.json', ''),
+            ],
+          })
+          .replace('package.json', ''),
+      ).getAbsoluteFSPath(),
       serveRoot: '/api',
     }),
   ],
