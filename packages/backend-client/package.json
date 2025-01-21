@@ -2,11 +2,10 @@
   "name": "@stock-tax-app/backend-client",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "type": "module",
+  "main": "dist/js/index.js",
   "scripts": {
-    "generate:swagger": "node src/build-swagger-spec.js",
-    "generate:typescript": "orval --input dist/swagger.json --output dist/index.ts",
+    "generate:swagger": "node build-swagger-spec.mjs",
+    "generate:typescript": "orval",
     "generate:javascript": "tsc",
     "build": "pnpm run generate:swagger && pnpm run generate:typescript && pnpm run generate:javascript"
   },

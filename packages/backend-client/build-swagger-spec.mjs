@@ -10,7 +10,7 @@ async function buildSwaggerSpec() {
   const document = await generateSwaggerDocument(app);
 
   // Ensure the directory exists
-  const filePath = "./dist/swagger.json";
+  const filePath = "./dist/json/swagger.json";
   const dir = filePath.substring(0, filePath.lastIndexOf("/"));
 
   if (!existsSync(dir)) {
