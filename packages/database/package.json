@@ -4,7 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "prisma generate"
+    "postinstall": "pnpm run build",
+    "build": "prisma generate",
+    "clean": "rm -rf node_modules dist"
   },
   "keywords": [],
   "author": "",
