@@ -12,9 +12,7 @@
   ],
   "scripts": {
     "postinstall": "pnpm run build",
-    "build": "nest build && pnpm run postbuild",
-    "postbuild": "pnpm run conditional-migrate",
-    "conditional-migrate": "if [ -n \"$NODE_ENV\" ] && [ \"$NODE_ENV\" != \"development\" ]; then pnpm run migrate; else echo 'Skipping migration: NODE_ENV is either undefined or development environment'; fi",
+    "build": "nest build",
     "migrate": "pnpm run --filter @stock-tax-app/database migrate",
     "generate-spec": "node -e \"(async () => { await (await import('./dist/swagger.js')).generateSpec(); })()\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
