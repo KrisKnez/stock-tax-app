@@ -2,9 +2,9 @@
   "name": "@stock-tax-app/backend-deploy-cloudflare",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/_worker.js",
   "scripts": {
-    "build": "tsc ",
+    "build": "ncc build src/_worker.ts -o dist/ -m && mv dist/index.js dist/_worker.js",
     "clean": "rm -rf node_modules dist"
   },
   "keywords": [],
@@ -13,7 +13,9 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250121.0",
     "@stock-tax-app/backend": "workspace:*",
-    "@types/node": "^22.10.7",
-    "typescript": "^5.7.3"
+    "@types/node": "^22.10.7"
+  },
+  "dependencies": {
+    "@vercel/ncc": "^0.38.3"
   }
 }
