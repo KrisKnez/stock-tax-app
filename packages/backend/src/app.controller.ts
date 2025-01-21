@@ -12,6 +12,8 @@ export class AppController {
   async getHello(): Promise<string> {
     const user = (await this.prisma.user.findMany())[0];
 
+    console.log(process.env.NODE_ENV);
+
     return user.name;
 
     // return this.appService.getHello();

@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "postinstall": "pnpm run build",
+    "clean": "rm -rf node_modules dist",
     "build": "prisma generate",
-    "clean": "rm -rf node_modules dist"
+    "migrate": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
