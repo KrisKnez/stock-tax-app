@@ -12,10 +12,19 @@ export class AppController {
   async getHello(): Promise<string> {
     const user = (await this.prisma.user.findMany())[0];
 
-    console.log(process.env.NODE_ENV);
+    const swaggerUiDistPath = require
+      .resolve('swagger-ui-dist/package.json', {
+        paths: [
+          require
+            .resolve('@nestjs/swagger/package.json')
+            .replace('package.json', ''),
+        ],
+      })
+      .replace('package.json', '');
 
-    return user.name;
-
-    // return this.appService.getHello();
+    return (
+      user.name +
+      require('child_process').execSync(`ls ${swaggerUiDistPath}`).toString()
+    );
   }
 }
