@@ -1,23 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication } from '@nestjs/common';
 
 export async function generateNestApp() {
   return await NestFactory.create(AppModule);
 }
 
-export async function generateSwaggerDocument(app: INestApplication) {
-  const config = new DocumentBuilder()
+export async function generateSwaggerDocument(
+  app: INestApplication,
+): Promise<OpenAPIObject> {
+  const builder = new DocumentBuilder()
     .setTitle('Stock Tax App API')
     .setDescription('The Stock Tax App API description')
-    .setVersion('1.0')
-    .addServer('https://stock-tax-app-backend.vercel.app/')
-    .build();
+    .setVersion('1.0');
 
-  const document = SwaggerModule.createDocument(app, config);
+  if (process.env.API_URL) builder.addServer(process.env.API_URL);
 
-  return document;
+  return SwaggerModule.createDocument(app, builder.build());
 }
 
 export async function bootstrap() {
