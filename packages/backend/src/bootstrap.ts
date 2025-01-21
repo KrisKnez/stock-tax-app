@@ -12,6 +12,7 @@ export async function generateSwaggerDocument(app: INestApplication) {
     .setTitle('Stock Tax App API')
     .setDescription('The Stock Tax App API description')
     .setVersion('1.0')
+    .addServer('https://stock-tax-app-backend.vercel.app/')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
