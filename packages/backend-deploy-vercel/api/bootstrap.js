@@ -1,6 +1,3 @@
-// import { HttpAdapterHost } from "@nestjs/core";
-
-// import { bootstrap } from "@stock-tax-app/backend";
 import { bootstrap } from "@stock-tax-app/backend";
 
 // Keep the app instance in memory for subsequent requests

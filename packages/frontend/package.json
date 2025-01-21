@@ -1,12 +1,13 @@
 {
-  "name": "frontend",
+  "name": "@stock-tax-app/frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf node_modules .next"
   },
   "dependencies": {
     "react": "^19.0.0",

@@ -1,0 +1,16 @@
+{
+  "name": "@stock-tax-app/database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "6.2.1",
+    "prisma": "^6.2.1"
+  }
+}
