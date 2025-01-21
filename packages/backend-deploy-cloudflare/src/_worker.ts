@@ -2,17 +2,22 @@ interface Env {
   ASSETS: Fetcher;
 }
 
-export default {
-  async fetch(request, env): Promise<Response> {
-    // const url = new URL(request.url);
-    // if (url.pathname.startsWith("/api/")) {
-    //   // TODO: Add your custom /api/* logic here.
-    //   return new Response("Ok");
-    // }
-    // // Otherwise, serve the static assets.
-    // // Without this, the Worker will error and no assets will be served.
-    // return env.ASSETS.fetch(request);
+import { bootstrap } from "@stock-tax-app/backend";
 
-    return new Response("Ok");
+// Keep the app instance in memory for subsequent requests
+let app: Awaited<ReturnType<typeof bootstrap>>;
+
+export default {
+  async fetch(request: Request, env): Promise<Response> {
+    // Bootstrap our NestJS app on cold start
+    if (!app) app = await bootstrap();
+
+    const instance = app.getHttpAdapter().getInstance();
+
+    let response: Response;
+
+    instance(request, response);
+
+    return response;
   },
 } satisfies ExportedHandler<Env>;
