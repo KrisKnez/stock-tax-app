@@ -25,6 +25,13 @@ export async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
+  // TODO: Implement a custom origin function that allows origin from environment variable
+  app.enableCors({
+    origin: (origin, callback) => {
+      callback(null, true);
+    },
+  });
+
   await app.init();
 
   return app;
