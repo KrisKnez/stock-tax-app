@@ -13,7 +13,10 @@
   "scripts": {
     "postinstall": "pnpm run build",
     "build": "nest build && pnpm run postbuild",
-    "postbuild": "if [ \"$NODE_ENV\" != \"development\" ]; then pnpm run --filter @stock-tax-app/database migrate; else echo 'Skipping migration, in development environment'; fi",
+    "postbuild": "pnpm run conditional-migrate",
+    "conditional-migrate": "if [ \"$NODE_ENV\" != \"development\" ]; then pnpm run migrate; else echo 'Skipping migration, in development environment'; fi",
+    "migrate": "pnpm run --filter @stock-tax-app/database migrate",
+    "generate-spec": "node -e \"(async () => { await (await import('./dist/swagger.js')).generateSpec(); })()\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",

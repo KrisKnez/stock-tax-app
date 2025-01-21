@@ -1,0 +1,22 @@
+{
+  "name": "@stock-tax-app/backend-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "generate:swagger": "node src/build-swagger-spec.js",
+    "generate:typescript": "orval --input dist/swagger.json --output dist/index.ts",
+    "generate:javascript": "tsc ./dist/index.ts --outFile ./dist/index.js",
+    "build": "pnpm run generate:swagger && pnpm run generate:typescript && pnpm run generate:javascript"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@stock-tax-app/backend": "workspace:*",
+    "axios": "^1.7.9",
+    "orval": "^7.4.1",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,18 +1,29 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { INestApplication } from '@nestjs/common';
+
+export async function generateNestApp() {
+  return await NestFactory.create(AppModule);
+}
+
+export async function generateSwaggerDocument(app: INestApplication) {
+  const config = new DocumentBuilder()
+    .setTitle('Stock Tax App API')
+    .setDescription('The Stock Tax App API description')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  return document;
+}
 
 export async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await generateNestApp();
+  const document = await generateSwaggerDocument(app);
 
-  const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
-    .setVersion('1.0')
-    .addTag('cats')
-    .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('api', app, document);
 
   await app.init();
 
