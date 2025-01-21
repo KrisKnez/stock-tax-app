@@ -1,5 +1,5 @@
 {
-  "name": "backend-deploy-cloudflare",
+  "name": "@stock-tax-app/backend-deploy-cloudflare",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
