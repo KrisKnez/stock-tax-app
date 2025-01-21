@@ -1,9 +1,10 @@
 {
   "name": "@stock-tax-app/backend-deploy-lambda",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build src/index.ts -o dist -m && (cd dist && zip -FSr ../dist.zip .)"
+    "build": "ncc build src/index.ts -o dist -m",
+    "build-zip": "pnpm run build && (cd dist && zip -FSr ../dist.zip .)"
   },
   "keywords": [],
   "author": "",
