@@ -1,7 +1,1 @@
-{
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "packages/amplify-backend/packages/*"
-  ]
-}
+{}
