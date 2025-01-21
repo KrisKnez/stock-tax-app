@@ -1,3 +1,9 @@
+import type {
+  Fetcher,
+  ExportedHandler,
+  Request,
+  Response,
+} from "@cloudflare/workers-types";
 interface Env {
   ASSETS: Fetcher;
 }

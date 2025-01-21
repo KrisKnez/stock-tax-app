@@ -3,8 +3,8 @@
     "target": "esnext",
     "module": "esnext",
     "lib": ["esnext"],
-    "types": ["@cloudflare/workers-types"],
+    "types": ["node"],
     "outDir": "dist",
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   }
 }
