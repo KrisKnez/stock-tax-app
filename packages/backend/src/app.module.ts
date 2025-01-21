@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
@@ -18,6 +19,10 @@ import { AppService } from './app.service';
     //     .replace('package.json', ''),
     //   serveRoot: '/api',
     // }),
+    ServeStaticModule.forRoot({
+      rootPath: require('swagger-ui-dist').getAbsoluteFSPath(),
+      serveRoot: '/api',
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
