@@ -7,7 +7,7 @@
   "scripts": {
     "generate:swagger": "node src/build-swagger-spec.js",
     "generate:typescript": "orval --input dist/swagger.json --output dist/index.ts",
-    "generate:javascript": "tsc ./dist/index.ts --outFile ./dist/index.js",
+    "generate:javascript": "tsc",
     "build": "pnpm run generate:swagger && pnpm run generate:typescript && pnpm run generate:javascript"
   },
   "keywords": [],
