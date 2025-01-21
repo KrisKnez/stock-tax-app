@@ -7,6 +7,9 @@ export default defineConfig({
     },
     output: {
       target: "./dist/ts/index.ts",
+      baseUrl: {
+        getBaseUrlFromSpecification: true,
+      },
     },
   },
 });
