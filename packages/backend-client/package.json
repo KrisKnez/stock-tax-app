@@ -7,7 +7,8 @@
     "generate:swagger": "node build-swagger-spec.mjs",
     "generate:typescript": "orval",
     "generate:javascript": "tsc",
-    "build": "pnpm run generate:swagger && pnpm run generate:typescript && pnpm run generate:javascript"
+    "build": "pnpm run generate:swagger && pnpm run generate:typescript && pnpm run generate:javascript",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
   "author": "",
