@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/js/index.js",
   "scripts": {
+    "postinstall": "pnpm run build",
     "generate:swagger": "node build-swagger-spec.mjs",
     "generate:typescript": "orval",
     "generate:javascript": "tsc",
