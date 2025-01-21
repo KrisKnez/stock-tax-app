@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "postinstall": "pnpm run build",
     "build": "ncc build src/index.ts -o dist -m",
     "build-zip": "pnpm run build && (cd dist && zip -FSr ../dist.zip .)",
     "clean": "rm -rf node_modules dist dist.zip"
