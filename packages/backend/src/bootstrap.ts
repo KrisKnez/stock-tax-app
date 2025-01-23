@@ -35,7 +35,11 @@ export async function bootstrap() {
     }),
   );
 
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalInterceptors(
+    new ClassSerializerInterceptor(app.get(Reflector), {
+      excludeExtraneousValues: true,
+    }),
+  );
 
   // TODO: Implement a custom origin function that allows origin from environment variable
   app.enableCors({

@@ -19,7 +19,7 @@ export class UsersService {
           password: await argon2.hash(createUserDto.password),
         },
       })
-      .then((user) => new UserDto(user));
+      .then((user) => UserDto.fromEntity(user));
   }
 
   readOne(id: number): Promise<UserDto> {
@@ -27,13 +27,13 @@ export class UsersService {
       .findFirstOrThrow({
         where: { id },
       })
-      .then((user) => new UserDto(user));
+      .then((user) => UserDto.fromEntity(user));
   }
 
   readMany(): Promise<Array<UserDto>> {
     return this.prismaService.user
       .findMany()
-      .then((users) => users.map((user) => new UserDto(user)));
+      .then((users) => users.map((user) => UserDto.fromEntity(user)));
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<UserDto> {
@@ -47,7 +47,7 @@ export class UsersService {
           }),
         },
       })
-      .then((user) => new UserDto(user));
+      .then((user) => UserDto.fromEntity(user));
   }
 
   delete(id: number): Promise<UserDto> {
@@ -57,6 +57,6 @@ export class UsersService {
           id,
         },
       })
-      .then((user) => new UserDto(user));
+      .then((user) => UserDto.fromEntity(user));
   }
 }

@@ -34,9 +34,11 @@ export class UsersController {
   @ApiOkResponse({ type: UserDto, description: 'User found' })
   @ApiNotFoundResponse({ description: 'User not found' })
   readOne(@Param('id') id: number): Promise<UserDto> {
-    return this.usersService.readOne(id).catch(() => {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    });
+    return this.usersService
+      .readOne(id)
+      .catch(() => {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      });
   }
 
   @Get()
