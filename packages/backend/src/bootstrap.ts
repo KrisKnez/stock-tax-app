@@ -1,7 +1,11 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
-import { INestApplication } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 
 export async function generateNestApp() {
   return await NestFactory.create(AppModule);
@@ -22,9 +26,16 @@ export async function generateSwaggerDocument(
 
 export async function bootstrap() {
   const app = await generateNestApp();
-  const document = await generateSwaggerDocument(app);
 
-  SwaggerModule.setup('api', app, document);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      always: true,
+    }),
+  );
+
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   // TODO: Implement a custom origin function that allows origin from environment variable
   app.enableCors({
@@ -32,6 +43,9 @@ export async function bootstrap() {
       callback(null, true);
     },
   });
+
+  const document = await generateSwaggerDocument(app);
+  SwaggerModule.setup('api', app, document);
 
   await app.init();
 
