@@ -3,15 +3,15 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-import { appControllerGetHello } from "@stock-tax-app/backend-client";
-import { useEffect } from "react";
+// import { appControllerGetHello } from "@stock-tax-app/backend-client";
+// import { useEffect } from "react";
 
 export default function Home() {
-  useEffect(() => {
-    appControllerGetHello().then((result) => {
-      console.log(result.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   appControllerGetHello().then((result) => {
+  //     console.log(result.data);
+  //   });
+  // }, []);
 
   return (
     <div className={styles.page}>
