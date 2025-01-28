@@ -6,6 +6,8 @@ import { DatabaseService } from 'src/infrastructure/database/database.service';
 import { UserDto } from './dtos/user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { OffsetPaginationQueryDto } from 'src/common/dtos/offset-pagination-query.dto';
+import { PaginatedUserDto } from './dtos/paginated-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -30,10 +32,20 @@ export class UsersService {
       .then((user) => UserDto.fromEntity(user));
   }
 
-  readMany(): Promise<Array<UserDto>> {
-    return this.prismaService.user
-      .findMany()
+  async readMany({
+    offset,
+    limit,
+  }: OffsetPaginationQueryDto): Promise<PaginatedUserDto> {
+    const users = await this.prismaService.user
+      .findMany({
+        skip: offset,
+        take: limit,
+      })
       .then((users) => users.map((user) => UserDto.fromEntity(user)));
+
+    const count = await this.prismaService.user.count();
+
+    return PaginatedUserDto.fromEntityArray(users, count, offset, limit);
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<UserDto> {

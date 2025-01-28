@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import {
   ApiOkResponse,
@@ -19,6 +20,8 @@ import { UsersService } from './users.service';
 import { UserDto } from './dtos/user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { OffsetPaginationQueryDto } from 'src/common/dtos/offset-pagination-query.dto';
+import { PaginatedUserDto } from './dtos/paginated-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -34,17 +37,20 @@ export class UsersController {
   @ApiOkResponse({ type: UserDto, description: 'User found' })
   @ApiNotFoundResponse({ description: 'User not found' })
   readOne(@Param('id') id: number): Promise<UserDto> {
-    return this.usersService
-      .readOne(id)
-      .catch(() => {
-        throw new NotFoundException(`User with ID ${id} not found`);
-      });
+    return this.usersService.readOne(id).catch(() => {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    });
   }
 
   @Get()
-  @ApiOkResponse({ type: UserDto, isArray: true, description: 'Users found' })
-  readMany(): Promise<Array<UserDto>> {
-    return this.usersService.readMany();
+  @ApiOkResponse({
+    type: PaginatedUserDto,
+    description: 'Users found',
+  })
+  readMany(
+    @Query() offsetPaginationQueryDto: OffsetPaginationQueryDto,
+  ): Promise<PaginatedUserDto> {
+    return this.usersService.readMany(offsetPaginationQueryDto);
   }
 
   @Patch(':id')
