@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/_worker.js",
   "scripts": {
-    "build": "ncc build src/_worker.ts -o dist/ -m && mv dist/index.js dist/_worker.js",
+    "build": "tsc",
+    "build-ncc": "ncc build src/_worker.ts -o dist/ -m && mv dist/index.js dist/_worker.js",
     "clean": "rm -rf node_modules dist"
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "@types/node": "^22.10.7"
   },
   "dependencies": {
-    "@vercel/ncc": "^0.38.3"
+    "@vercel/ncc": "^0.38.3",
+    "typescript": "^5.7.3"
   }
 }
