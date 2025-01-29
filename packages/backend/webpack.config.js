@@ -2,6 +2,8 @@
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
-  // Other rules...
+  output: {
+    filename: 'index.js',
+  },
   plugins: [new NodePolyfillPlugin()],
 };
