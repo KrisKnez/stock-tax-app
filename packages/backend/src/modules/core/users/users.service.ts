@@ -8,6 +8,8 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { OffsetPaginationQueryDto } from 'src/common/dtos/offset-pagination-query.dto';
 import { PaginatedUserDto } from './dtos/paginated-user.dto';
+import { FilterUserDto } from './dtos/filter-user.dto';
+import { SortUserDto } from './dtos/sort-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -32,18 +34,23 @@ export class UsersService {
       .then((user) => UserDto.fromEntity(user));
   }
 
-  async readMany({
-    offset,
-    limit,
-  }: OffsetPaginationQueryDto): Promise<PaginatedUserDto> {
+  async readMany(
+    { offset, limit }: OffsetPaginationQueryDto,
+    filterUserDto?: FilterUserDto,
+    sortUserDto?: SortUserDto,
+  ): Promise<PaginatedUserDto> {
     const users = await this.prismaService.user
       .findMany({
         skip: offset,
         take: limit,
+        ...(filterUserDto && { where: filterUserDto.toPrismaWhere() }),
+        ...(sortUserDto && { orderBy: sortUserDto.toPrismaOrderBy() }),
       })
       .then((users) => users.map((user) => UserDto.fromEntity(user)));
 
-    const count = await this.prismaService.user.count();
+    const count = await this.prismaService.user.count({
+      ...(filterUserDto && { where: filterUserDto.toPrismaWhere() }),
+    });
 
     return PaginatedUserDto.fromEntityArray(users, count, offset, limit);
   }

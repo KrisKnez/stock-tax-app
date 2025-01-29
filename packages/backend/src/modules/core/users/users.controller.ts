@@ -22,6 +22,8 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { OffsetPaginationQueryDto } from 'src/common/dtos/offset-pagination-query.dto';
 import { PaginatedUserDto } from './dtos/paginated-user.dto';
+import { FilterUserDto } from './dtos/filter-user.dto';
+import { SortUserDto } from './dtos/sort-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -48,9 +50,15 @@ export class UsersController {
     description: 'Users found',
   })
   readMany(
+    @Query() sortUserDto: SortUserDto,
+    @Query() filterUserDto: FilterUserDto,
     @Query() offsetPaginationQueryDto: OffsetPaginationQueryDto,
   ): Promise<PaginatedUserDto> {
-    return this.usersService.readMany(offsetPaginationQueryDto);
+    return this.usersService.readMany(
+      offsetPaginationQueryDto,
+      filterUserDto,
+      sortUserDto,
+    );
   }
 
   @Patch(':id')
