@@ -20,7 +20,7 @@ import { UsersService } from './users.service';
 import { UserDto } from './dtos/user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { OffsetPaginationQueryDto } from 'src/common/dtos/offset-pagination-query.dto';
+import { OffsetPaginationDto } from 'src/common/dtos/offset-pagination.dto';
 import { PaginatedUserDto } from './dtos/paginated-user.dto';
 import { FilterUserDto } from './dtos/filter-user.dto';
 import { SortUserDto } from './dtos/sort-user.dto';
@@ -52,10 +52,10 @@ export class UsersController {
   readMany(
     @Query() sortUserDto: SortUserDto,
     @Query() filterUserDto: FilterUserDto,
-    @Query() offsetPaginationQueryDto: OffsetPaginationQueryDto,
+    @Query() offsetPaginationDto: OffsetPaginationDto,
   ): Promise<PaginatedUserDto> {
     return this.usersService.readMany(
-      offsetPaginationQueryDto,
+      offsetPaginationDto,
       filterUserDto,
       sortUserDto,
     );

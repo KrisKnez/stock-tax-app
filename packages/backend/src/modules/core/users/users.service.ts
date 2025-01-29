@@ -6,7 +6,7 @@ import { DatabaseService } from 'src/infrastructure/database/database.service';
 import { UserDto } from './dtos/user.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { OffsetPaginationQueryDto } from 'src/common/dtos/offset-pagination-query.dto';
+import { OffsetPaginationDto } from 'src/common/dtos/offset-pagination.dto';
 import { PaginatedUserDto } from './dtos/paginated-user.dto';
 import { FilterUserDto } from './dtos/filter-user.dto';
 import { SortUserDto } from './dtos/sort-user.dto';
@@ -35,7 +35,7 @@ export class UsersService {
   }
 
   async readMany(
-    { offset, limit }: OffsetPaginationQueryDto,
+    { offset, limit }: OffsetPaginationDto,
     filterUserDto?: FilterUserDto,
     sortUserDto?: SortUserDto,
   ): Promise<PaginatedUserDto> {
