@@ -13,6 +13,7 @@
   "scripts": {
     "postinstall": "pnpm run build",
     "build": "nest build",
+    "build-webpack": "nest build --webpack --webpackPath webpack.config.js",
     "migrate": "pnpm run --filter @stock-tax-app/database migrate",
     "generate-spec": "node -e \"(async () => { await (await import('./dist/swagger.js')).generateSpec(); })()\"",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -39,6 +40,7 @@
     "argon2": "^0.41.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "node-polyfill-webpack-plugin": "^4.1.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "utility-types": "^3.11.0"
