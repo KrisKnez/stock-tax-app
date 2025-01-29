@@ -5,5 +5,18 @@ module.exports = {
   output: {
     filename: 'index.js',
   },
-  plugins: [new NodePolyfillPlugin()],
+  plugins: [
+    new NodePolyfillPlugin({
+      additionalAliases: [
+        'stream',
+        'crypto',
+        'os',
+        'http',
+        'https',
+        'path',
+        'zlib',
+        'fs',
+      ],
+    }),
+  ],
 };
