@@ -2,10 +2,28 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Brand } from 'utility-types';
 
 import { Prisma } from '@stock-tax-app/database';
-import { IsOptional } from 'class-validator';
+import { IsNumberString, IsOptional } from 'class-validator';
+import { plainToClass } from 'class-transformer';
 
-export class FilterUserDto implements Brand<object, 'FilterUserDto'> {
+export interface IFilterUserDto {
+  idEquals?: string;
+  nameContains?: string;
+  nameStartsWith?: string;
+  nameEndsWith?: string;
+  nameEquals?: string;
+  emailContains?: string;
+  emailStartsWith?: string;
+  emailEndsWith?: string;
+  emailEquals?: string;
+}
+
+export class FilterUserDto implements Brand<IFilterUserDto, 'FilterUserDto'> {
   __brand: 'FilterUserDto';
+
+  @ApiPropertyOptional()
+  @IsNumberString()
+  @IsOptional()
+  idEquals?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
@@ -29,7 +47,7 @@ export class FilterUserDto implements Brand<object, 'FilterUserDto'> {
 
   @ApiPropertyOptional()
   @IsOptional()
-  emailStarsWith?: string;
+  emailStartsWith?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
@@ -39,22 +57,49 @@ export class FilterUserDto implements Brand<object, 'FilterUserDto'> {
   @IsOptional()
   emailEquals?: string;
 
+  static fromObject(filterUser: IFilterUserDto): FilterUserDto {
+    return plainToClass(FilterUserDto, filterUser);
+  }
+
   toPrismaWhere(): Prisma.UserWhereInput {
-    return {
-      name: {
+    const where: Prisma.UserWhereInput = {};
+
+    if (this.idEquals) {
+      where.id = {
+        equals: Number(this.idEquals),
+      };
+    }
+
+    if (
+      this.nameContains ||
+      this.nameStartsWith ||
+      this.nameEndsWith ||
+      this.nameEquals
+    ) {
+      where.name = {
         contains: this.nameContains,
         startsWith: this.nameStartsWith,
         endsWith: this.nameEndsWith,
         equals: this.nameEquals,
         mode: 'insensitive',
-      },
-      email: {
+      };
+    }
+
+    if (
+      this.emailContains ||
+      this.emailStartsWith ||
+      this.emailEndsWith ||
+      this.emailEquals
+    ) {
+      where.email = {
         contains: this.emailContains,
-        startsWith: this.emailStarsWith,
+        startsWith: this.emailStartsWith,
         endsWith: this.emailEndsWith,
         equals: this.emailEquals,
         mode: 'insensitive',
-      },
-    };
+      };
+    }
+
+    return where;
   }
 }

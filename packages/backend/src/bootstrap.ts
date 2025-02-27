@@ -15,6 +15,7 @@ export async function generateSwaggerDocument(
   app: INestApplication,
 ): Promise<OpenAPIObject> {
   const builder = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Stock Tax App API')
     .setDescription('The Stock Tax App API description')
     .setVersion('1.0');

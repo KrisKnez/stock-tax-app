@@ -6,19 +6,13 @@ import {
   NotFoundException,
   Param,
   Patch,
-  Post,
   Query,
 } from '@nestjs/common';
-import {
-  ApiOkResponse,
-  ApiCreatedResponse,
-  ApiNotFoundResponse,
-} from '@nestjs/swagger';
+import { ApiOkResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
 
 import { UserDto } from './dtos/user.dto';
-import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { OffsetPaginationDto } from 'src/common/dtos/offset-pagination.dto';
 import { PaginatedUserDto } from './dtos/paginated-user.dto';
@@ -29,19 +23,19 @@ import { SortUserDto } from './dtos/sort-user.dto';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @Post()
-  @ApiCreatedResponse({ type: UserDto, description: 'User created' })
-  create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
-    return this.usersService.create(createUserDto);
-  }
-
   @Get(':id')
   @ApiOkResponse({ type: UserDto, description: 'User found' })
   @ApiNotFoundResponse({ description: 'User not found' })
-  readOne(@Param('id') id: number): Promise<UserDto> {
-    return this.usersService.readOne(id).catch(() => {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    });
+  readOne(@Param('id') id: string): Promise<UserDto> {
+    return this.usersService
+      .readOne(
+        FilterUserDto.fromObject({
+          idEquals: id,
+        }),
+      )
+      .catch(() => {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      });
   }
 
   @Get()
