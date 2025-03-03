@@ -17,7 +17,7 @@ import { UsersService } from '../users/users.service';
 import { LoginResponseDto } from './dtos/login-response.dto';
 import { AuthTokenDto } from './dtos/auth-token.dto';
 import { FilterUserDto } from '../users/dtos/filter-user.dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 import { ChangePasswordDto } from './dtos/change-password.dto';
 
 @Controller('auth')
@@ -27,6 +27,7 @@ export class AuthController {
     private usersService: UsersService,
   ) {}
 
+  @ApiOkResponse({ type: LoginResponseDto, description: 'User logged in' })
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
