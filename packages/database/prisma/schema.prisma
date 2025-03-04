@@ -19,7 +19,7 @@ model User {
   email    String  @unique
   name     String?
   password String  @default("")
-  role     Role    @default(USER)
+  roles    Role[]  @default([USER])
 }
 
 enum Role {
