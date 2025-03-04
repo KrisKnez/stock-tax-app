@@ -11,11 +11,12 @@ import * as argon2 from 'argon2';
 import { LoginResponseDto } from './dtos/login-response.dto';
 import { ChangePasswordDto } from './dtos/change-password.dto';
 import { UpdateUserDto } from '../users/dtos/update-user.dto';
+import { AuthToken } from './types/auth-token.type';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
 
@@ -28,7 +29,7 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto): Promise<LoginResponseDto> {
-    const user = await this.userService
+    const user = await this.usersService
       .readOne(
         FilterUserDto.fromObject({
           emailEquals: loginDto.email,
@@ -42,13 +43,16 @@ export class AuthService {
       throw new UnauthorizedException('Incorrect credentials');
     }
 
-    const token = await this.jwtService.signAsync({ id: user.id });
+    const token = await this.jwtService.signAsync({
+      id: String(user.id),
+      roles: user.roles,
+    } as AuthToken);
 
     return new LoginResponseDto(token);
   }
 
   async register(registerDto: RegisterDto): Promise<UserDto> {
-    const user = await this.userService.create(
+    const user = await this.usersService.create(
       CreateUserDto.fromObject({
         name: registerDto.name,
         email: registerDto.email,
@@ -63,7 +67,7 @@ export class AuthService {
     userId: string,
     { currentPassword, newPassword }: ChangePasswordDto,
   ): Promise<void> {
-    const user = await this.userService.readOne(
+    const user = await this.usersService.readOne(
       FilterUserDto.fromObject({
         idEquals: userId,
       }),
@@ -75,6 +79,6 @@ export class AuthService {
 
     user.password = await this.hashPassword(newPassword);
 
-    await this.userService.update(user.id, UpdateUserDto.fromObject(user));
+    await this.usersService.update(user.id, UpdateUserDto.fromObject(user));
   }
 }

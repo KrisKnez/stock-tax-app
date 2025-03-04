@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, plainToInstance } from 'class-transformer';
 import { Brand } from 'utility-types';
 
-import { User } from '@stock-tax-app/database';
+import { Role, User } from '@stock-tax-app/database';
 
 export class UserDto implements Brand<User, 'UserDto'> {
   __brand: 'UserDto';
@@ -23,6 +23,11 @@ export class UserDto implements Brand<User, 'UserDto'> {
     toPlainOnly: true,
   })
   password: string;
+
+  @Exclude({
+    toPlainOnly: true,
+  })
+  roles: Role[];
 
   static fromEntity(user: User): UserDto {
     return plainToInstance(UserDto, user);

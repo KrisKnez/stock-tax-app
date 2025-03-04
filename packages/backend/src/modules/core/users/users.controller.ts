@@ -7,8 +7,13 @@ import {
   Param,
   Patch,
   Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import {
+  ApiOkResponse,
+  ApiNotFoundResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
 
@@ -18,8 +23,14 @@ import { OffsetPaginationDto } from 'src/common/dtos/offset-pagination.dto';
 import { PaginatedUserDto } from './dtos/paginated-user.dto';
 import { FilterUserDto } from './dtos/filter-user.dto';
 import { SortUserDto } from './dtos/sort-user.dto';
+import { Role, Roles } from '../auth/roles.decorator';
 
-@Controller('users')
+import { AuthGuard } from '../auth/auth.guard';
+
+@ApiBearerAuth()
+@UseGuards(AuthGuard)
+@Roles(Role.ADMIN)
+@Controller('admin/users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 

@@ -6,11 +6,19 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { LoginResponseDto } from './dtos/login-response.dto';
+import { Reflector } from '@nestjs/core';
+import { Role, ROLES_KEY } from './roles.decorator';
+import { AuthToken } from './types/auth-token.type';
+import { UsersService } from '../users/users.service';
+import { FilterUserDto } from '../users/dtos/filter-user.dto';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private usersService: UsersService,
+    private reflector: Reflector,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -18,15 +26,36 @@ export class AuthGuard implements CanActivate {
     if (!token) {
       throw new UnauthorizedException();
     }
-    try {
-      const payload =
-        await this.jwtService.verifyAsync<LoginResponseDto>(token);
-      // 💡 We're assigning the payload to the request object here
-      // so that we can access it in our route handlers
-      request['jwt'] = payload;
-    } catch {
-      throw new UnauthorizedException();
+
+    const payload = await this.jwtService
+      .verifyAsync<AuthToken>(token)
+      .catch(() => {
+        throw new UnauthorizedException();
+      });
+
+    const user = await this.usersService
+      .readOne(
+        FilterUserDto.fromObject({
+          idEquals: payload.id,
+        }),
+      )
+      .catch(() => {
+        throw new UnauthorizedException();
+      });
+
+    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (
+      requiredRoles &&
+      !requiredRoles.some((role) => user.roles.includes(role))
+    ) {
+      return false;
     }
+
+    request['user'] = user;
+
     return true;
   }
 
